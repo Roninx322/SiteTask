@@ -1,0 +1,28 @@
+﻿
+#LeftDiv {
+   
+    top: 0;
+    left: 0;
+    width: 33%;
+    height: 33%;
+    background-color: green;
+}
+
+#RightDiv {
+
+    top: 0;
+    left: 0;
+    width: 33%;
+    height: 33%;
+    background-color: blue;
+}
+
+#CetnterDiv {
+
+    top: 0;
+    left: 0;
+    width: 33%;
+    height: 33%;
+    background-color: red;
+}
+

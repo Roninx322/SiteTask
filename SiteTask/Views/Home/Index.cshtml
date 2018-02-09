@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div id="LeftDiv">
+    <table>
+        <tr>
+            <td><p>Id рботника</p></td>
+            <td><p>Имя</p></td>
+            <td><p>телефон</p></td>
+            <td><p>E-mail</p></td>
+        </tr>
+        @foreach (var b in ViewBag.Workers)
+        {
+          <tr>
+                <td><p>@b.WorkerId</p></td>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.PhoneNumber</p></td>
+                <td><p>@b.Email</p></td>
+          </tr>
+        }
+    </table>
+</div>
+<div id="CetnterDiv">
+    <table>
+        <tr>
+            <td><p>Id задачи</p></td>
+            <td><p>Название</p></td>
+            <td><p>Комментарий</p></td>
+        </tr>
+        @foreach (var b in  ViewBag.Tasks)
+        {
+            <tr>
+                <td><p>@b.TaskId</p></td>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.Comment</p></td>
+
+            </tr>
+        }
+    </table>
+</div>
