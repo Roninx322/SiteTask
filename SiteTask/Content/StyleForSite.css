@@ -5,7 +5,7 @@
     left: 0;
     width: 33%;
     height: 33%;
-    background-color: green;
+    background-color: lightblue;
 }
 
 #RightDiv {
@@ -14,7 +14,7 @@
     left: 0;
     width: 33%;
     height: 33%;
-    background-color: blue;
+    background-color: lightcoral;
 }
 
 #CetnterDiv {
@@ -23,6 +23,6 @@
     left: 0;
     width: 33%;
     height: 33%;
-    background-color: red;
+    background-color: lightgreen;
 }
 

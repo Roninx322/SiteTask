@@ -1,0 +1,23 @@
+﻿@model SiteTask.Models.Worker
+@{
+    ViewBag.Title = "addWorker";
+}
+
+<h2>addWorker</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Name, "Name")
+    <br />
+    @Html.EditorFor(model => model.Name)
+    <br /><br />
+    @Html.LabelFor(model => model.PhoneNumber, "Phone number")
+    <br />
+    @Html.EditorFor(model => model.PhoneNumber)
+    <br /><br />
+    @Html.LabelFor(model => model.Email, "E-mail")
+    <br />
+    @Html.EditorFor(model => model.Email)
+    <br /><br />
+    <input type="submit" value="Add" />
+}

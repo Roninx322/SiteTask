@@ -9,7 +9,7 @@ namespace SiteTask.Models
     {
         public int TimeId { get; set; }
         public int TaskId { get; set; }
-        public int WorkersId { get; set; }
+        public int WorkerId { get; set; }
         public DateTime BeginningDate { get; set; }
         public DateTime EndDate { get; set; }
     }

@@ -1,6 +1,8 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Home Page";
 }
+
 <div id="LeftDiv">
     <table>
         <tr>
@@ -9,16 +11,19 @@
             <td><p>телефон</p></td>
             <td><p>E-mail</p></td>
         </tr>
-        @foreach (var b in ViewBag.Workers)
+        @foreach (SiteTask.Models.Worker b in ViewBag.Workers)
         {
-          <tr>
+            <tr>
                 <td><p>@b.WorkerId</p></td>
                 <td><p>@b.Name</p></td>
                 <td><p>@b.PhoneNumber</p></td>
                 <td><p>@b.Email</p></td>
-          </tr>
+                <td><p><a href="/Home/EditWorker/@b.WorkerId">Edit</a></p></td>
+                <td><p><a href="/Home/RemoveWorker/@b.WorkerId">Remove</a></p></td>
+            </tr>
         }
     </table>
+    <a href="/Home/addWorker/">Add</a>
 </div>
 <div id="CetnterDiv">
     <table>
@@ -27,14 +32,38 @@
             <td><p>Название</p></td>
             <td><p>Комментарий</p></td>
         </tr>
-        @foreach (var b in  ViewBag.Tasks)
+        @foreach (SiteTask.Models.Task b in ViewBag.Tasks)
         {
-            <tr>
-                <td><p>@b.TaskId</p></td>
-                <td><p>@b.Name</p></td>
-                <td><p>@b.Comment</p></td>
-
-            </tr>
+        <tr>
+            <td><p>@b.TaskId</p></td>
+            <td><p>@b.Name</p></td>
+            <td><p>@b.Comment</p></td>
+            <td><p><a href="/Home/EditWorker/@b.TaskId">Edit</a></p></td>
+            <td><p><a href="/Home/RemoveWorker/@b.TaskId">Remove</a></p></td>
+        </tr>
+        }
+    </table>
+</div>
+<div id="RightDiv">
+    <table>
+        <tr>
+            <td><p>Id время</p></td>
+            <td><p>Id задачи</p></td>
+            <td><p>Id работника</p></td>
+            <td><p>Дата начала</p></td>
+            <td><p>Дата окончания</p></td>
+        </tr>
+        @foreach (SiteTask.Models.Time b in ViewBag.Times)
+        {
+        <tr>
+            <td><p>@b.TimeId</p></td>
+            <td><p>@b.TaskId</p></td>
+            <td><p>@b.WorkerId</p></td>
+            <td><p>@b.BeginningDate</p></td>
+            <td><p>@b.EndDate</p></td>
+            <td><p><a href="/Home/EditWorker/@b.TimeId">Edit</a></p></td>
+            <td><p><a href="/Home/RemoveWorker/@b.TimeId">Remove</a></p></td>
+        </tr>
         }
     </table>
 </div>
