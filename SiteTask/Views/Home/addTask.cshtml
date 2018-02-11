@@ -1,0 +1,20 @@
+﻿@model SiteTask.Models.Task
+
+@{
+    ViewBag.Title = "addTask";
+}
+
+<h2>addTask</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.Name, "Name")
+    <br />
+    @Html.EditorFor(model => model.Name)
+    <br /><br />
+    @Html.LabelFor(model => model.Comment, "Comment")
+    <br />
+    @Html.EditorFor(model => model.Comment)
+    <br /><br />
+    <input type="submit" value="Add" />
+}

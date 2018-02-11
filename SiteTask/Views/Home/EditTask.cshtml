@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "EditTask";
+}
+
+@model SiteTask.Models.Task
+
+<h2>Worker № @Model.TaskId</h2>
+@using (Html.BeginForm("EditWorker", "Home", FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.TaskId)
+        <p>
+            @Html.LabelFor(m => m.Name, "Name")
+            <br />
+            @Html.EditorFor(m => m.Name)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Comment, "Comment")
+            <br />
+            @Html.EditorFor(m => m.Comment)
+
+        </p>
+        <p><input type="submit" value="Отправить" /></p>
+    </fieldset>
+}

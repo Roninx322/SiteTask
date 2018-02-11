@@ -197,8 +197,12 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\addWorker.cshtml" />
     <Content Include="Views\Home\EditWorker.cshtml" />
+    <Content Include="Views\Home\EditTask.cshtml" />
+    <Content Include="Views\Home\addTask.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Task\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>

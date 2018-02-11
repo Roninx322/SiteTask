@@ -34,15 +34,16 @@
         </tr>
         @foreach (SiteTask.Models.Task b in ViewBag.Tasks)
         {
-        <tr>
-            <td><p>@b.TaskId</p></td>
-            <td><p>@b.Name</p></td>
-            <td><p>@b.Comment</p></td>
-            <td><p><a href="/Home/EditWorker/@b.TaskId">Edit</a></p></td>
-            <td><p><a href="/Home/RemoveWorker/@b.TaskId">Remove</a></p></td>
-        </tr>
+            <tr>
+                <td><p>@b.TaskId</p></td>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.Comment</p></td>
+                <td><p><a href="/Home/EditTask/@b.TaskId">Edit</a></p></td>
+                <td><p><a href="/Home/RemoveTask/@b.TaskId">Remove</a></p></td>
+            </tr>
         }
     </table>
+    <a href="/Home/addTask/">Add</a>
 </div>
 <div id="RightDiv">
     <table>
@@ -55,15 +56,16 @@
         </tr>
         @foreach (SiteTask.Models.Time b in ViewBag.Times)
         {
-        <tr>
-            <td><p>@b.TimeId</p></td>
-            <td><p>@b.TaskId</p></td>
-            <td><p>@b.WorkerId</p></td>
-            <td><p>@b.BeginningDate</p></td>
-            <td><p>@b.EndDate</p></td>
-            <td><p><a href="/Home/EditWorker/@b.TimeId">Edit</a></p></td>
-            <td><p><a href="/Home/RemoveWorker/@b.TimeId">Remove</a></p></td>
-        </tr>
+            <tr>
+                <td><p>@b.TimeId</p></td>
+                <td><p>@b.TaskId</p></td>
+                <td><p>@b.WorkerId</p></td>
+                <td><p>@b.BeginningDate</p></td>
+                <td><p>@b.EndDate</p></td>
+                <td><p><a href="/Home/EditTime/@b.TimeId">Edit</a></p></td>
+                <td><p><a href="/Home/RemoveTime/@b.TimeId">Remove</a></p></td>
+            </tr>
         }
     </table>
+    <a href="/Home/addTime/">Add</a>
 </div>

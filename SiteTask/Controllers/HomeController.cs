@@ -24,6 +24,9 @@ namespace SiteTask.Controllers
             ViewBag.Times = times;
             return View();
         }
+        //конечно такой деревянный способ еще не искал как можно это более динамически записать но для добавления для каждой таблицы делать отдельную форму такое себе удовольствие 
+
+        //Edit, Add, Remove for Worker
         public ActionResult RemoveWorker(int id)
         {
             Worker b = db.Workers.Find(id);
@@ -60,6 +63,46 @@ namespace SiteTask.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        
+        //Edit, Add, Remove for Task
+        public ActionResult RemoveTask(int id)
+        {
+            Task b = db.Tasks.Find(id);
+            db.Tasks.Remove(b);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult addTask()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult addTask(Task task)
+        {
+            db.Entry(task).State = EntityState.Added;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditTask(int? Id)
+        {
+            Task task = db.Tasks.Find(Id);
+            return View(task);
+        }
+
+        [HttpPost]
+        public ActionResult EditTask(Task task)
+        {
+            db.Entry(task).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
