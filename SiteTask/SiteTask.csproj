@@ -199,6 +199,8 @@
     <Content Include="Views\Home\EditWorker.cshtml" />
     <Content Include="Views\Home\EditTask.cshtml" />
     <Content Include="Views\Home\addTask.cshtml" />
+    <Content Include="Views\Home\addTime.cshtml" />
+    <Content Include="Views\Home\EditTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Task\" />

@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewBag.Title = "EditTime";
+}
+
+
+@model SiteTask.Models.Time
+<h2>Time № @Model.TimeId</h2>
+@using (Html.BeginForm("EditWorker", "Home", FormMethod.Post))
+{
+    <fieldset>
+        @Html.HiddenFor(m => m.TimeId)
+        <p>
+            @Html.LabelFor(m => m.TaskId, "Task")
+            <br />
+            @Html.DropDownListFor(model => model.TaskId, new SelectList(ViewBag.Tasks, "TaskId", "Name"))
+        </p>
+        <p>
+            @Html.LabelFor(m => m.WorkerId, "Worker")
+            <br />
+            @Html.DropDownListFor(model => model.WorkerId, new SelectList(ViewBag.Workers, "WorkerId", "Name"))
+
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Date, "Date")
+            <br />
+            @Html.TextBoxFor(model => model.Date)
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Hours, "Hours")
+            <br />
+            @Html.EditorFor(model => model.Hours)
+        </p>
+        <p><input type="submit" value="Отправить" /></p>
+    </fieldset>
+}

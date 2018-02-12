@@ -6,24 +6,34 @@ using System.Web.Mvc;
 using System.Data.Entity;
 using SiteTask.Models;
 
+
+
 namespace SiteTask.Controllers
 {
     public class HomeController : Controller
     {
 
         JobContext db = new JobContext();
-
         [HttpGet]
         public ActionResult Index()
         {
             IEnumerable<Worker> workers = db.Workers;
             IEnumerable<Task> tasks = db.Tasks;
-            IEnumerable<Time> times = db.Times;
+            
+            var grupTask = db.Times.GroupBy(q => q.Group, w => w.Hours)
+                .Select(g => new {
+                    Name = g.Key,
+                    Count = g.Sum(),
+                     Taskd = db.Times.Select(p=>p.TaskId)
+                });
+            //var gr = grupTask.GroupBy(q=>q.)
+           // IEnumerable<Time> times = grupTask;
             ViewBag.Workers = workers;
             ViewBag.Tasks = tasks;
-            ViewBag.Times = times;
+            ViewBag.Times = grupTask; 
             return View();
         }
+      
         //конечно такой деревянный способ еще не искал как можно это более динамически записать но для добавления для каждой таблицы делать отдельную форму такое себе удовольствие 
 
         //Edit, Add, Remove for Worker
@@ -102,7 +112,48 @@ namespace SiteTask.Controllers
             return RedirectToAction("Index");
         }
 
+        //Edit, Add, Remove for Time
+        public ActionResult RemoveTime(int id)
+        {
+            Time b = db.Times.Find(id);
+            db.Times.Remove(b);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
+        [HttpGet]
+        public ActionResult addTime()
+        {
+            ViewBag.Tasks = db.Tasks;
+            ViewBag.Workers = db.Workers;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult addTime(Time time)
+        {
+            time.Group = Convert.ToInt32(time.TaskId.ToString() + time.WorkerId.ToString());
+            db.Entry(time).State = EntityState.Added;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult EditTime(int? Id)
+        {
+            ViewBag.Tasks = db.Tasks;
+            ViewBag.Workers = db.Workers;
+            Time time = db.Times.Find(Id);
+            return View(time);
+        }
+
+        [HttpPost]
+        public ActionResult EditTime(Time time)
+        {
+            db.Entry(time).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

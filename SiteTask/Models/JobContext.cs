@@ -13,5 +13,6 @@ namespace SiteTask.Models
         public DbSet<Worker> Workers { get; set; }
         public DbSet<Task> Tasks { get; set; }
         public DbSet<Time> Times { get; set; }
+        
     }
 }

@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "addTime";
+}
+
+@model SiteTask.Models.Time
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(model => model.TaskId, "Task")
+    <br />
+    @Html.DropDownListFor(model => model.TaskId, new SelectList(ViewBag.Tasks, "TaskId", "Name"))
+    <br /><br />
+    @Html.LabelFor(model => model.WorkerId, "Worker")
+    <br />
+    @Html.DropDownListFor(model => model.WorkerId, new SelectList(ViewBag.Workers, "WorkerId", "Name"))
+    <br /><br />
+    @Html.LabelFor(model => model.Date, "Date")
+    <br />
+    @Html.TextBoxFor(model => model.Date)
+    <br /><br />
+    @Html.LabelFor(model => model.Hours, "Hours")
+    <br />
+    @Html.EditorFor(model => model.Hours)
+    <br /><br />
+
+    <input type="submit" value="Add" />
+}
