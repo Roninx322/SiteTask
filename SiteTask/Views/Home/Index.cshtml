@@ -6,7 +6,7 @@
 <div id="LeftDiv">
     <table>
         <tr>
-            <td><p>Id рботника</p></td>
+            <td><p>Id</p></td>
             <td><p>Имя</p></td>
             <td><p>телефон</p></td>
             <td><p>E-mail</p></td>
@@ -28,7 +28,7 @@
 <div id="CetnterDiv">
     <table>
         <tr>
-            <td><p>Id задачи</p></td>
+            <td><p>Id</p></td>
             <td><p>Название</p></td>
             <td><p>Комментарий</p></td>
         </tr>
@@ -46,9 +46,9 @@
     <a href="/Home/addTask/">Add</a>
 </div>
 <div id="RightDiv">
-    @*<table>
+    <table>
         <tr>
-            <td><p> @Html.ActionLink("Last Name", "Index", new { category = ViewBag.TaskSortParm }) </p></td>
+            <td><p>Id </p></td>
             <td><p>Id задачи</p></td>
             <td><p>Id работника</p></td>
             <td><p>Дата</p></td>
@@ -66,18 +66,12 @@
                 <td><p><a href="/Home/RemoveTime/@b.TimeId">Remove</a></p></td>
             </tr>
         }
-    </table>*@
+    </table>
     <a href="/Home/addTime/">Add</a>
 </div>
-@*@foreach (var g in ((IEnumerable<SiteTask.Models.Time>)ViewBag.Times).GroupBy(p => p.TimeId))
-{
-    <li>
-        @g.Key - @g.Count()
-    </li>
-}*@
-<div>
+@*<div>
     @{
-        var grid = new WebGrid(ViewBag.Times, defaultSort: "TimeId");
+        var grid = new WebGrid(ViewBag.SortTask);
     }
     @grid.GetHtml()
-</div>
+</div>*@

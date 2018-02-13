@@ -5,8 +5,8 @@
 
 @model SiteTask.Models.Task
 
-<h2>Worker № @Model.TaskId</h2>
-@using (Html.BeginForm("EditWorker", "Home", FormMethod.Post))
+<h2>Task № @Model.TaskId</h2>
+@using (Html.BeginForm("EditTask", "Home", FormMethod.Post))
 {
     <fieldset>
         @Html.HiddenFor(m => m.TaskId)

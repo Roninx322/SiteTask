@@ -5,43 +5,98 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using SiteTask.Models;
+using System.Collections;
 
 
 
 namespace SiteTask.Controllers
 {
+    public class SortTask
+    {
+        JobContext db;
+        public SortTask(JobContext db1)
+        {
+            this.db = db1;
+        }
+
+        public List<SortLIst> listSort()
+        {
+            List<Time> timeList = new List<Time>();
+            List<Task> taskList = new List<Task>();
+            taskList = this.db.Tasks.ToList();
+            timeList = this.db.Times.ToList();
+            List<SortLIst> listqwe = timeList.GroupBy(q => new { q.TaskId, q.WorkerId }, p => p.Hours)
+                    .Select(g => new SortLIst
+                    {
+                        TaskId = g.Key.TaskId,
+                        WorkerId = g.Key.WorkerId,
+                        Hours = g.Sum(p=>p)
+                    }).ToList();
+            listqwe = listqwe.GroupBy(q=> q.TaskId,p=> new { p.WorkerId,p.Hours})
+                .Select(g=> new SortLIst
+                {
+                    TaskId= g.Key,
+                    WorkerId= g.ElementAt(1),
+                })
+            //for (int i = 0; i < taskList.Count; i++)
+            //{
+            //    int max;
+            //    for (int j = 0; j < listqwe.Count; j++)
+            //    {
+            //        if (taskList[i].TaskId == listqwe[j].Task)
+            //        {
+                        
+            //        }
+            //    }
+               
+            //}
+            return listqwe;
+        }
+    }
+
     public class HomeController : Controller
     {
-
+        
         JobContext db = new JobContext();
+
         [HttpGet]
         public ActionResult Index()
         {
+            SortTask sortTask = new SortTask(db);
             IEnumerable<Worker> workers = db.Workers;
             IEnumerable<Task> tasks = db.Tasks;
-            
-            var grupTask = db.Times.GroupBy(q => q.Group, w => w.Hours)
-                .Select(g => new {
-                    Name = g.Key,
-                    Count = g.Sum(),
-                     Taskd = db.Times.Select(p=>p.TaskId)
-                });
-            //var gr = grupTask.GroupBy(q=>q.)
-           // IEnumerable<Time> times = grupTask;
+            IEnumerable<Time> times = db.Times;
+            //IEnumerable<SortLIst> sortLIst = sortTask.listSort().ToArray().ToList();
+            //var grupTask = db.Times.GroupBy(q => new { q.TaskId, q.WorkerId }, p => new { p.Hours, p.Date })
+            //    .Select(g => new
+            //    {
+
+            //        TaskID = g.Key.TaskId,
+            //        WorkerID = g.Key.WorkerId,
+            //        Hours = g.Sum(p => p.Hours),
+            //    });
+            //var gr = grupTask.GroupBy(q => q.TaskID, p => new { p.Hours, p.WorkerID }).Select
+            //    (g => new
+            //    {
+            //        taskId = g.Key,
+            //        hours = g.Max(),
+
+            //    });
             ViewBag.Workers = workers;
             ViewBag.Tasks = tasks;
-            ViewBag.Times = grupTask; 
+            ViewBag.Times = times;
+            //ViewBag.SortTask = sortLIst;
             return View();
         }
-      
-        //конечно такой деревянный способ еще не искал как можно это более динамически записать но для добавления для каждой таблицы делать отдельную форму такое себе удовольствие 
+
+        //конечно такой деревянный способ, еще не искал как можно это более динамически записать, но для добавления для каждой таблицы делать отдельную форму такое себе удовольствие 
 
         //Edit, Add, Remove for Worker
         public ActionResult RemoveWorker(int id)
         {
             Worker b = db.Workers.Find(id);
-                db.Workers.Remove(b);
-                db.SaveChanges();
+            db.Workers.Remove(b);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -73,7 +128,7 @@ namespace SiteTask.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-        
+
         //Edit, Add, Remove for Task
         public ActionResult RemoveTask(int id)
         {
@@ -154,6 +209,7 @@ namespace SiteTask.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
         protected override void Dispose(bool disposing)
         {
             db.Dispose();

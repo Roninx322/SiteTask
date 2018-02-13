@@ -153,6 +153,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\JobContext.cs" />
+    <Compile Include="Models\SortLIst.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\Time.cs" />
     <Compile Include="Models\Worker.cs" />

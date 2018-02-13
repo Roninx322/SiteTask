@@ -6,7 +6,7 @@
 
 @model SiteTask.Models.Time
 <h2>Time № @Model.TimeId</h2>
-@using (Html.BeginForm("EditWorker", "Home", FormMethod.Post))
+@using (Html.BeginForm("EditTime", "Home", FormMethod.Post))
 {
     <fieldset>
         @Html.HiddenFor(m => m.TimeId)
