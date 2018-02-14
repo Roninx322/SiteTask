@@ -1,0 +1,26 @@
+﻿@*виев с таблице заданий*@
+@{
+    ViewBag.Title = "TasksTable";
+}
+
+<div id="CetnterDiv">
+    <h2>Table with Tasks</h2>
+    <table>
+        <tr>
+            <td><p>Id</p></td>
+            <td><p>Name</p></td>
+            <td><p>Comment</p></td>
+        </tr>
+        @foreach (SiteTask.Models.Task b in ViewBag.Tasks)
+        {
+            <tr>
+                <td><p>@b.TaskId</p></td>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.Comment</p></td>
+                <td><p><a href="/Home/EditTask/@b.TaskId">Edit</a></p></td>
+                <td><p><a href="/Home/RemoveTask/@b.TaskId">Remove</a></p></td>
+            </tr>
+        }
+    </table>
+    <a href="/Home/addTask/">Add</a>
+</div>

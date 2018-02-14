@@ -1,0 +1,37 @@
+﻿
+
+
+
+@*виев с таблице времени затраченого на задание*@
+@{
+    ViewBag.Title = "TimesTable";
+
+}
+@foreach (SiteTask.Models.Task b in ViewBag.Tasks) { }
+@foreach (SiteTask.Models.Worker b in ViewBag.Workers) { } 
+<div id="RightDiv">
+    <h2>Table with Times</h2>
+    <table>
+        <tr>
+            <td><p>Id </p></td>
+            <td><p>Task</p></td>
+            <td><p>Worker</p></td>
+            <td><p>Date</p></td>
+            <td><p>Count hours</p></td>
+        </tr>
+        @foreach (SiteTask.Models.Time b in ViewBag.Times)
+        {
+            <tr>
+                <td><p>@b.TimeId</p></td>
+                <td><p>@ViewBag.Tasks.Find(b.TaskId).Name</p></td>
+                <td><p>@ViewBag.Workers.Find(b.WorkerId).Name</p></td>
+                <td><p>@b.Date</p></td>
+                <td><p>@b.Hours</p></td>
+                <td><p><a href="/Home/EditTime/@b.TimeId">Edit</a></p></td>
+                <td><p><a href="/Home/RemoveTime/@b.TimeId">Remove</a></p></td>
+            </tr>
+        }
+    </table>
+
+    <a href="/Home/addTime/">Add</a>
+</div>

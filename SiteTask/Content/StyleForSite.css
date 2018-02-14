@@ -3,26 +3,26 @@
    
     top: 0;
     left: 0;
-    width: 33%;
+    width: 100%;
     height: 33%;
-    background-color: lightblue;
+    background-color: azure;
 }
 
 #RightDiv {
 
     top: 0;
     left: 0;
-    width: 33%;
+    width: 100%;
     height: 33%;
-    background-color: lightcoral;
+    background-color: beige;
 }
 
 #CetnterDiv {
 
     top: 0;
     left: 0;
-    width: 33%;
+    width: 100%;
     height: 33%;
-    background-color: lightgreen;
+    background-color: antiquewhite;
 }
 

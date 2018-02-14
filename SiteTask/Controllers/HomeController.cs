@@ -11,6 +11,7 @@ using System.Collections;
 
 namespace SiteTask.Controllers
 {
+    //класс для создание отчета за месяц 
     public class SortTask
     {
         JobContext db;
@@ -19,38 +20,61 @@ namespace SiteTask.Controllers
             this.db = db1;
         }
 
-        public List<SortLIst> listSort()
+        public List<SortLIst> listSort(int month=1)
         {
-            List<Time> timeList = new List<Time>();
+            List<Time> timeList = new List<Time>();   
             List<Task> taskList = new List<Task>();
             taskList = this.db.Tasks.ToList();
             timeList = this.db.Times.ToList();
-            List<SortLIst> listqwe = timeList.GroupBy(q => new { q.TaskId, q.WorkerId }, p => p.Hours)
+            for (int i = 0; i < timeList.Count; i++)
+            {
+                if (timeList[i].Date.Month.ToString() != month.ToString())
+                {
+                    timeList.RemoveAt(i);
+                    i = -1;
+                }
+            }
+            List<SortLIst> list2 = new List<SortLIst>();
+            List<SortLIst> list1 = timeList.GroupBy(q => new { q.TaskId, q.WorkerId }, p => p.Hours)
                     .Select(g => new SortLIst
                     {
                         TaskId = g.Key.TaskId,
                         WorkerId = g.Key.WorkerId,
                         Hours = g.Sum(p=>p)
                     }).ToList();
-            listqwe = listqwe.GroupBy(q=> q.TaskId,p=> new { p.WorkerId,p.Hours})
-                .Select(g=> new SortLIst
+            var list = list1.GroupBy(q => q.TaskId, p =>p.Hours )
+                .Select(g => new SortLIst
                 {
-                    TaskId= g.Key,
-                    WorkerId= g.ElementAt(1),
-                })
-            //for (int i = 0; i < taskList.Count; i++)
-            //{
-            //    int max;
-            //    for (int j = 0; j < listqwe.Count; j++)
-            //    {
-            //        if (taskList[i].TaskId == listqwe[j].Task)
-            //        {
-                        
-            //        }
-            //    }
-               
-            //}
-            return listqwe;
+                    TaskId = g.Key,
+                    Hours = g.Max(p => p)
+                }).ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                for (int j = 0; j < list1.Count; j++)
+                {
+                    if (list[i].TaskId == list1[j].TaskId && list[i].Hours==list1[j].Hours)
+                    {
+                        list2.Add(list1[j]);
+
+                    }
+                }
+            }
+            for (int i = 0; i < taskList.Count; i++)
+            {
+                bool b = false;
+                for (int j = 0;  j < list2.Count;  j++)
+                {
+                    if (taskList[i].TaskId==list2[j].TaskId)
+                    {
+                        b = true;
+                    }
+                }
+                if (b==false)
+                {
+                    list2.Add(new SortLIst() { TaskId = taskList[i].TaskId });
+                }
+            }
+            return list2;
         }
     }
 
@@ -58,37 +82,66 @@ namespace SiteTask.Controllers
     {
         
         JobContext db = new JobContext();
-
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult OtechetView(int? date)
         {
             SortTask sortTask = new SortTask(db);
             IEnumerable<Worker> workers = db.Workers;
             IEnumerable<Task> tasks = db.Tasks;
             IEnumerable<Time> times = db.Times;
-            //IEnumerable<SortLIst> sortLIst = sortTask.listSort().ToArray().ToList();
-            //var grupTask = db.Times.GroupBy(q => new { q.TaskId, q.WorkerId }, p => new { p.Hours, p.Date })
-            //    .Select(g => new
-            //    {
-
-            //        TaskID = g.Key.TaskId,
-            //        WorkerID = g.Key.WorkerId,
-            //        Hours = g.Sum(p => p.Hours),
-            //    });
-            //var gr = grupTask.GroupBy(q => q.TaskID, p => new { p.Hours, p.WorkerID }).Select
-            //    (g => new
-            //    {
-            //        taskId = g.Key,
-            //        hours = g.Max(),
-
-            //    });
+            IEnumerable<SortLIst> sortLIst = sortTask.listSort(Convert.ToInt32(date));
             ViewBag.Workers = workers;
             ViewBag.Tasks = tasks;
             ViewBag.Times = times;
-            //ViewBag.SortTask = sortLIst;
+            ViewBag.SortTask = sortLIst;
             return View();
         }
 
+        //отоброжение view  
+        [HttpGet]
+        public ActionResult Index()
+        {
+            IEnumerable<Worker> workers = db.Workers;
+            IEnumerable<Task> tasks = db.Tasks;
+            IEnumerable<Time> times = db.Times;
+            ViewBag.Workers = workers;
+            ViewBag.Tasks = tasks;
+            ViewBag.Times = times;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult TasksTable()
+        {
+            IEnumerable<Worker> workers = db.Workers;
+            IEnumerable<Task> tasks = db.Tasks;
+            IEnumerable<Time> times = db.Times;
+            ViewBag.Workers = workers;
+            ViewBag.Tasks = tasks;
+            ViewBag.Times = times;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult WorkersTable()
+        {
+            IEnumerable<Worker> workers = db.Workers;
+            IEnumerable<Task> tasks = db.Tasks;
+            IEnumerable<Time> times = db.Times;
+            ViewBag.Workers = workers;
+            ViewBag.Tasks = tasks;
+            ViewBag.Times = times;
+            return View();
+        }
+        [HttpGet]
+        public ActionResult TimesTable()
+        {
+            IEnumerable<Worker> workers = db.Workers;
+            IEnumerable<Task> tasks = db.Tasks;
+            IEnumerable<Time> times = db.Times;
+            ViewBag.Workers = workers;
+            ViewBag.Tasks = tasks;
+            ViewBag.Times = times;
+            return View();
+        }
         //конечно такой деревянный способ, еще не искал как можно это более динамически записать, но для добавления для каждой таблицы делать отдельную форму такое себе удовольствие 
 
         //Edit, Add, Remove for Worker

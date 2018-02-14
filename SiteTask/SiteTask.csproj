@@ -202,6 +202,10 @@
     <Content Include="Views\Home\addTask.cshtml" />
     <Content Include="Views\Home\addTime.cshtml" />
     <Content Include="Views\Home\EditTime.cshtml" />
+    <Content Include="Views\Home\OtechetView.cshtml" />
+    <Content Include="Views\Home\TasksTable.cshtml" />
+    <Content Include="Views\Home\WorkersTable.cshtml" />
+    <Content Include="Views\Home\TimesTable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Task\" />

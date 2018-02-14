@@ -1,0 +1,29 @@
+﻿@*виев с таблице работников*@
+@{
+    ViewBag.Title = "WorkersTable";
+}
+
+
+<div id="LeftDiv">
+    <h2>Table with Workers</h2>
+    <table>
+        <tr>
+            <td><p>Id</p></td>
+            <td><p>Name</p></td>
+            <td><p>Phone number</p></td>
+            <td><p>E-mail</p></td>
+        </tr>
+        @foreach (SiteTask.Models.Worker b in ViewBag.Workers)
+        {
+            <tr>
+                <td><p>@b.WorkerId</p></td>
+                <td><p>@b.Name</p></td>
+                <td><p>@b.PhoneNumber</p></td>
+                <td><p>@b.Email</p></td>
+                <td><p><a href="/Home/EditWorker/@b.WorkerId">Edit</a></p></td>
+                <td><p><a href="/Home/RemoveWorker/@b.WorkerId">Remove</a></p></td>
+            </tr>
+        }
+    </table>
+    <a href="/Home/addWorker/">Add</a>
+</div>

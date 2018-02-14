@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "OtechetView";
+}
+
+<h2>Report</h2>
+<div>
+    <table>
+        <tr>
+            <td><p>Task</p></td>
+            <td><p>Worker</p></td>
+            <td><p>Hours</p></td>
+        </tr>
+        @foreach (var b in ViewBag.SortTask)
+        {
+            <tr>
+                <td><p>@ViewBag.Tasks.Find(b.TaskId).Name</p></td>
+                <td>
+                    <p>
+                        @if (b.WorkerId != 0)
+                        {@ViewBag.Workers.Find(b.WorkerId).Name;
+                    }
+                    </p>
+                </td>
+                <td>
+                    <p>
+                        @if (b.Hours != 0)
+                        {@b.Hours}
+                    </p>
+                </td>
+            </tr>
+        }
+    </table>
+    @*@{
+            var grid = new WebGrid(ViewBag.SortTask);
+            SiteTask.Models.Task task = new SiteTask.Models.Task();
+        }
+        @grid.GetHtml(columns: grid.Columns(
+                        grid.Column("TaskId", "Task", format: (item) => @ViewBag.Tasks.Find(item.TaskId).Name),
+                        grid.Column("WorkerId", "Worker", format: (item) => @ViewBag.Workers.Find(item.WorkerId).Name), /*он почти работает только не знаю как поставить условиие*/
+                        grid.Column("Hours", "Hours")
+                        ))<br />*@
+</div>
